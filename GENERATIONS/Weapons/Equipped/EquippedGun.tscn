@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Weapons/gun03.png" type="Texture" id=1]
+[ext_resource path="res://Weapons/Equipped/EquippedGun.gd" type="Script" id=2]
+
+[node name="Sprite" type="Sprite"]
+rotation = 3.14159
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="RefireTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
+
+[connection signal="timeout" from="RefireTimer" to="." method="_on_RefireTimer_timeout"]

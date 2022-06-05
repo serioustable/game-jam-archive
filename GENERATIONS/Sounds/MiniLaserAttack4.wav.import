@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/MiniLaserAttack4.wav-e0f015fd1cbfa3d19ce5fae0b32159eb.sample"
+
+[deps]
+
+source_file="res://Sounds/MiniLaserAttack4.wav"
+dest_files=[ "res://.import/MiniLaserAttack4.wav-e0f015fd1cbfa3d19ce5fae0b32159eb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

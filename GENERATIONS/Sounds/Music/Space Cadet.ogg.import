@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Space Cadet.ogg-c9cd0bc22847d3fb458d5b24c1ddb36e.oggstr"
+
+[deps]
+
+source_file="res://Sounds/Music/Space Cadet.ogg"
+dest_files=[ "res://.import/Space Cadet.ogg-c9cd0bc22847d3fb458d5b24c1ddb36e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

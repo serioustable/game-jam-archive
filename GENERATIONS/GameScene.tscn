@@ -1,0 +1,251 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Player/PlayerShip.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Weapons/Pickups/PickupGun.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GameScene.gd" type="Script" id=4]
+[ext_resource path="res://blue.png" type="Texture" id=5]
+[ext_resource path="res://StarBackground.gd" type="Script" id=6]
+[ext_resource path="res://Enemies/Linger_Enemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://UI/glassPanel.png" type="Texture" id=8]
+[ext_resource path="res://Weapons/Pickups/SpaceFont.tres" type="DynamicFont" id=9]
+[ext_resource path="res://UI/dotGreen.png" type="Texture" id=10]
+[ext_resource path="res://UI/dotBlue.png" type="Texture" id=11]
+[ext_resource path="res://UI/dotRed.png" type="Texture" id=12]
+[ext_resource path="res://UI/Kenney Mini.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://UI/SpaceButtonTheme.tres" type="Theme" id=14]
+[ext_resource path="res://Sounds/Music/Alpha Dance.ogg" type="AudioStream" id=15]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 528, 0 )
+}
+
+[sub_resource type="DynamicFont" id=2]
+size = 52
+outline_size = 1
+font_data = ExtResource( 13 )
+
+[node name="GameScene" type="Node2D"]
+script = ExtResource( 4 )
+simple_mob = ExtResource( 3 )
+linger_mob = ExtResource( 7 )
+player_scene = ExtResource( 1 )
+pickup_gun_scene = ExtResource( 2 )
+
+[node name="StarBackground" type="ParallaxBackground" parent="."]
+script = ExtResource( 6 )
+camera_velocity = 75
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="StarBackground"]
+motion_mirroring = Vector2( 0, 256 )
+
+[node name="TextureRect" type="TextureRect" parent="StarBackground/ParallaxLayer"]
+margin_right = 600.0
+margin_bottom = 800.0
+texture = ExtResource( 5 )
+stretch_mode = 2
+
+[node name="MobSpawnTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="WaveDelayTimer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="PickupSpawner" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2( 64, 0 )
+
+[node name="PlayerStartPosition" type="Position2D" parent="."]
+position = Vector2( 300, 648 )
+
+[node name="FirstPickupStartPosition" type="Position2D" parent="."]
+position = Vector2( 300, 550 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HUD"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -300.0
+margin_right = 300.0
+margin_bottom = 72.0
+texture = ExtResource( 8 )
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="NextGenResistances" type="Label" parent="HUD"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 371.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 9 )
+text = "NEXT GENERATION'S RESISTANCES:"
+
+[node name="EvolvesIn" type="Label" parent="HUD"]
+margin_left = 392.0
+margin_top = 8.0
+margin_right = 531.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 9 )
+text = "EVOLVES IN: "
+
+[node name="EvolvesTimer" type="Label" parent="HUD/EvolvesIn"]
+margin_left = 144.0
+margin_right = 184.0
+margin_bottom = 28.0
+custom_colors/font_color = Color( 0.921569, 1, 0, 1 )
+custom_fonts/font = ExtResource( 9 )
+text = "00"
+align = 1
+
+[node name="Destroyed" type="Label" parent="HUD"]
+margin_left = 392.0
+margin_top = 40.0
+margin_right = 515.0
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 9 )
+text = "DESTROYED: "
+
+[node name="DestroyedCount" type="Label" parent="HUD/Destroyed"]
+margin_left = 144.0
+margin_right = 184.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 9 )
+text = "00"
+align = 1
+
+[node name="BResIcon" type="TextureRect" parent="HUD"]
+margin_left = 8.0
+margin_top = 40.0
+margin_right = 32.0
+margin_bottom = 64.0
+texture = ExtResource( 11 )
+
+[node name="B" type="Label" parent="HUD/BResIcon"]
+margin_left = 32.0
+margin_right = 72.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 9 )
+text = "B: "
+
+[node name="BRes" type="Label" parent="HUD/BResIcon"]
+margin_left = 56.0
+margin_right = 110.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 9 )
+text = "0%"
+
+[node name="GResIcon" type="TextureRect" parent="HUD"]
+margin_left = 136.0
+margin_top = 40.0
+margin_right = 160.0
+margin_bottom = 64.0
+texture = ExtResource( 10 )
+
+[node name="G" type="Label" parent="HUD/GResIcon"]
+margin_left = 32.0
+margin_right = 72.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 9 )
+text = "G: "
+
+[node name="GRes" type="Label" parent="HUD/GResIcon"]
+margin_left = 56.0
+margin_right = 110.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 9 )
+text = "0%"
+
+[node name="RResIcon" type="TextureRect" parent="HUD"]
+margin_left = 264.0
+margin_top = 40.0
+margin_right = 288.0
+margin_bottom = 64.0
+texture = ExtResource( 12 )
+
+[node name="R" type="Label" parent="HUD/RResIcon"]
+margin_left = 32.0
+margin_right = 72.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 9 )
+text = "R: "
+
+[node name="RRes" type="Label" parent="HUD/RResIcon"]
+margin_left = 56.0
+margin_right = 110.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 9 )
+text = "0%"
+
+[node name="RetryButton" type="Button" parent="HUD"]
+margin_left = 264.0
+margin_top = 448.0
+margin_right = 344.0
+margin_bottom = 482.0
+theme = ExtResource( 14 )
+custom_fonts/font = ExtResource( 9 )
+text = "RETRY"
+
+[node name="QuitButton" type="Button" parent="HUD"]
+margin_left = 264.0
+margin_top = 488.0
+margin_right = 343.0
+margin_bottom = 522.0
+theme = ExtResource( 14 )
+custom_fonts/font = ExtResource( 9 )
+text = "QUIT"
+
+[node name="GetReadyLabel" type="Label" parent="."]
+margin_left = 168.0
+margin_top = 384.0
+margin_right = 439.0
+margin_bottom = 449.0
+custom_colors/font_color = Color( 0.921569, 1, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "GET READY"
+align = 1
+valign = 1
+
+[node name="GameOver" type="Label" parent="."]
+margin_left = 168.0
+margin_top = 384.0
+margin_right = 439.0
+margin_bottom = 449.0
+custom_colors/font_color = Color( 0.921569, 1, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "GAME OVER"
+align = 1
+valign = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+autoplay = true
+
+[node name="GameOverTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="MobSpawnTimer" to="." method="_on_MobSpawnTimer_timeout"]
+[connection signal="timeout" from="WaveDelayTimer" to="." method="_on_WaveDelayTimer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
+[connection signal="timeout" from="PickupSpawner" to="." method="_on_PickupSpawner_timeout"]
+[connection signal="pressed" from="HUD/RetryButton" to="." method="_on_RetryButton_pressed"]
+[connection signal="pressed" from="HUD/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="timeout" from="GameOverTimer" to="." method="_on_GameOverTimer_timeout"]

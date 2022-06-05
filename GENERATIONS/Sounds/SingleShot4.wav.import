@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/SingleShot4.wav-d97bb645ee77e1b3c5cccca91debe451.sample"
+
+[deps]
+
+source_file="res://Sounds/SingleShot4.wav"
+dest_files=[ "res://.import/SingleShot4.wav-d97bb645ee77e1b3c5cccca91debe451.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
